@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Transportadora</title>
@@ -14,8 +15,8 @@
             <img src="assets/img/logo.png" width="1000" height="250" class="">
             <h1 class="title">Transportadora</h1> 
 			<div class="d-grid gap-2 col-1 mx-auto">	
-	            <a class="btn btn-outline-warning" href="DestinyController?action=listDestiny">Destinos</a> 
-	            <a class="btn btn-outline-light" href="TruckController?action=listTruck">Caminhıes</a> 
+	            <a class="btn btn-outline-warning" href="DestinyController?op=listDestiny">Destinos</a> 
+	            <a class="btn btn-outline-light" href="TruckController?op=listTruck">Caminh√µes</a> 
 			</div>
         </div>      
     </header>

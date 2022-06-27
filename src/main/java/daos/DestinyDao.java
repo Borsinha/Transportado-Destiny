@@ -30,6 +30,11 @@ public class DestinyDao {
 			while (rs.next()) {
 				Destiny destiny = new Destiny();
 				destiny.setId(rs.getInt("id"));
+				destiny.setName(rs.getString("name"));
+				destiny.setStreet(rs.getString("street"));
+				destiny.setNumber(rs.getString("number"));
+				destiny.setCep(rs.getString("cep"));
+				destiny.setCity(rs.getString("city"));
 				destiny.setState(rs.getString("state"));
 				listDestiny.add(destiny);
 			}
@@ -43,7 +48,7 @@ public class DestinyDao {
     public void addDestiny(Destiny destiny) {
         try {
             PreparedStatement preparedStatement = conn
-                    .prepareStatement("insert into destiny(nome, street, number, cep, city, state) values (?, ?, ?, ?, ?, ?)");
+                    .prepareStatement("insert into destiny(name, street, number, cep, city, state) values (?, ?, ?, ?, ?, ?)");
 
             preparedStatement.setString(1, destiny.getName());
             preparedStatement.setString(2, destiny.getStreet());
@@ -62,7 +67,7 @@ public class DestinyDao {
     public void updateDestiny(Destiny destiny) {
         try {
             PreparedStatement preparedStatement = conn
-                    .prepareStatement("update destiny set nome=?, street=?, number=?, cep=?, city=?, state=?" +
+                    .prepareStatement("update destiny set name=?, street=?, number=?, cep=?, city=?, state=?" +
                             "where id=?");
             preparedStatement.setString(1, destiny.getName());
             preparedStatement.setString(2, destiny.getStreet());
@@ -87,7 +92,7 @@ public class DestinyDao {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
 				destiny.setId(rs.getInt("id"));
-				destiny.setName(rs.getString("nome"));
+				destiny.setName(rs.getString("name"));
 				destiny.setStreet(rs.getString("street"));
 				destiny.setNumber(rs.getString("number"));
 				destiny.setCep(rs.getString("cep"));

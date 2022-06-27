@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Truck {  
-private int id;
-private String model,driver,totalKm,currentLocation,destiny;  
+private int id, destiny;
+private String model,driver,totalKm,currentLocation;  
 
 //constructor
 
@@ -42,11 +42,11 @@ public void setCurrentLocation(String currentLocation) {
 	this.currentLocation = currentLocation;
 }
 
-public String getDestiny() {
+public int getDestiny() {
 	return destiny;
 }
 
-public void setDestiny(String destiny) {
+public void setDestiny(int destiny) {
 	this.destiny = destiny;
 }
 

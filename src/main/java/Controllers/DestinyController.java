@@ -19,8 +19,8 @@ import models.Destiny;
 @WebServlet(name = "Destiny", urlPatterns = { "/DestinyController" })
 public class DestinyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String INSERT_OR_EDIT = "/Destiny.jsp";
-	private static String LIST_DESTINY = "/listDestiny.jsp";
+	private static String ADDUP = "/Destiny.jsp";
+	private static String LIST = "/listDestiny.jsp";
 	private DestinyDao dao;
 
 	public DestinyController() {
@@ -30,24 +30,26 @@ public class DestinyController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String forward = "";
-		String action = request.getParameter("action");
+		String op = request.getParameter("op");
 		dao = new DestinyDao();
 
-		if (action.equalsIgnoreCase("delete")) {
+		if (op.equalsIgnoreCase("delete")) {
 			int id = Integer.parseInt(request.getParameter("destinyId"));
 			dao.deleteDestiny(id);
-			forward = LIST_DESTINY;
+			forward = LIST;
 			request.setAttribute("destiny", dao.getAllDestiny());
-		} else if (action.equalsIgnoreCase("edit")) {
-			forward = INSERT_OR_EDIT;
+		} else if (op.equalsIgnoreCase("edit")) {
+			forward = ADDUP;
 			int id = Integer.parseInt(request.getParameter("destinyId"));
 			Destiny destiny = dao.getDestinyById(id);
+			request.setAttribute("action", "Atualizar");
 			request.setAttribute("destiny", destiny);
-		} else if (action.equalsIgnoreCase("listdestiny")) {
-			forward = LIST_DESTINY;
+		} else if (op.equalsIgnoreCase("listdestiny")) {
+			forward = LIST;
 			request.setAttribute("destiny", dao.getAllDestiny());
 		} else {
-			forward = INSERT_OR_EDIT;
+			request.setAttribute("action", "Adicionar");
+			forward = ADDUP;
 		}
 
 		RequestDispatcher view = request.getRequestDispatcher(forward);
@@ -56,7 +58,7 @@ public class DestinyController extends HttpServlet {
 	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	Destiny destiny = new Destiny();
-    	destiny.setName(request.getParameter("nome"));
+    	destiny.setName(request.getParameter("name"));
     	destiny.setStreet(request.getParameter("street"));
     	destiny.setNumber(request.getParameter("number"));
     	destiny.setCep(request.getParameter("cep"));
@@ -72,7 +74,7 @@ public class DestinyController extends HttpServlet {
         	dao.updateDestiny(destiny);
         }
 
-        RequestDispatcher view = request.getRequestDispatcher(LIST_DESTINY);
+        RequestDispatcher view = request.getRequestDispatcher(LIST);
         request.setAttribute("destiny", dao.getAllDestiny());
         view.forward(request, response);
     }

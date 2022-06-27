@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Lista de Caminhões</title>
 
 <!-- css  -->
@@ -29,7 +28,7 @@
 	<div class='container'>
 		<h1 class='title'>Lista de Caminhões</h1>
 		<h3 class='components-section-title'>
-			<a class='btn btn-outline-dark' href='TruckController?action=insert'>Adicionar
+			<a class='btn btn-outline-dark' href='TruckController?op=insert'>Adicionar
 				Caminhão</a>
 		</h3>
 		<table class='table'>
@@ -55,11 +54,15 @@
 						<td><c:out value="${truck.driver}" /></td>
 						<td><c:out value="${truck.totalKm}" /></td>
 						<td><c:out value="${truck.currentLocation}" /></td>
-						<td><c:out value="${truck.destiny}" /></td>
+						<c:forEach items="${destinys}" var="destiny">
+							<c:if test="${truck.destiny == destiny.id}">
+								<td><c:out value="${destiny.name}" /></td>
+							</c:if>
+						</c:forEach>
 						<td><a class='btn btn-outline-dark'
-							href='TruckController?action=edit&truckId=<c:out value="${truck.id}"/>'>Editar</a></td>
+							href='TruckController?op=edit&truckId=<c:out value="${truck.id}"/>'>Editar</a></td>
 						<td><a class='btn btn-outline-dark'
-							href='TruckController?action=delete&truckId=<c:out value="${truck.id}"/>'>delete</a></td>
+							href='TruckController?op=delete&truckId=<c:out value="${truck.id}"/>'>delete</a></td>
 
 					</tr>
 				</c:forEach>

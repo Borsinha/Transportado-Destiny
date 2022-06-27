@@ -33,7 +33,7 @@ public class TruckDao {
 				truck.setDriver(rs.getString("driver"));
 				truck.setTotalKm(rs.getString("totalKm"));
 				truck.setCurrentLocation(rs.getString("currentLocation"));
-				truck.setDestiny(rs.getString("destiny"));
+				truck.setDestiny(rs.getInt("destiny"));
 				listTruck.add(truck);
 			}
 		} catch (SQLException e) {
@@ -52,7 +52,7 @@ public class TruckDao {
             preparedStatement.setString(2, truck.getDriver());
             preparedStatement.setString(3, truck.getTotalKm());
             preparedStatement.setString(4, truck.getCurrentLocation());
-            preparedStatement.setString(5, truck.getDestiny());
+            preparedStatement.setInt(5, truck.getDestiny());
 
             preparedStatement.executeUpdate();
 
@@ -64,15 +64,16 @@ public class TruckDao {
     public void updateTruck(Truck truck) {
         try {
             PreparedStatement preparedStatement = conn
-                    .prepareStatement("update truck set model=?, driver=?, totalkm=?, currentLocation=?, destiny=?" +
+                    .prepareStatement("update truck set model=?, driver=?, totalkm=?, currentLocation=?, destiny=? " +
                             "where id=?");
             preparedStatement.setString(1, truck.getModel());
             preparedStatement.setString(2, truck.getDriver());
             preparedStatement.setString(3, truck.getTotalKm());
             preparedStatement.setString(4, truck.getCurrentLocation());
-            preparedStatement.setString(5, truck.getDestiny());
+            preparedStatement.setInt(5, truck.getDestiny());
             preparedStatement.setInt(6, truck.getId());
-
+            
+            System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -92,7 +93,7 @@ public class TruckDao {
                 truck.setDriver(rs.getString("driver"));
                 truck.setTotalKm(rs.getString("totalKm"));
                 truck.setCurrentLocation(rs.getString("currentLocation"));
-                truck.setDestiny(rs.getString("destiny"));
+                truck.setDestiny(rs.getInt("destiny"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
