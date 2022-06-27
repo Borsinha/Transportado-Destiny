@@ -1,5 +1,8 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.Truck"%>
+<%@page import="java.util.List"%>
+<%@page import="models.Destiny"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -45,27 +48,32 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${trucks}" var="truck">
+				<% 
+					List<Truck> listTruck = (ArrayList<Truck>)request.getAttribute("trucks");
+					List<Destiny> listDestiny = (ArrayList<Destiny>)request.getAttribute("destinys");
+					for(Truck truck : listTruck){
+				%>	
 					<tr>
 						<th scope'row'>
-						<c:out value="${truck.id}" />
+							<% out.print(truck.getId()); %>
 						</th>
-						<td><c:out value="${truck.model}" /></td>
-						<td><c:out value="${truck.driver}" /></td>
-						<td><c:out value="${truck.totalKm}" /></td>
-						<td><c:out value="${truck.currentLocation}" /></td>
-						<c:forEach items="${destinys}" var="destiny">
-							<c:if test="${truck.destiny == destiny.id}">
-								<td><c:out value="${destiny.name}" /></td>
-							</c:if>
-						</c:forEach>
+						<td><% out.print(truck.getModel()); %></td>
+						<td><% out.print(truck.getDriver()); %></td>
+						<td><% out.print(truck.getTotalKm()); %></td>
+						<td><% out.print(truck.getCurrentLocation()); %></td>
+						
+						<% for(Destiny destiny : listDestiny){ 
+							if(truck.getDestiny() == destiny.getId()){
+								out.print("<td>"+ destiny.getName() +"</td>");
+							}
+						}
+						%>
 						<td><a class='btn btn-outline-dark'
-							href='TruckController?op=edit&truckId=<c:out value="${truck.id}"/>'>Editar</a></td>
+							href='TruckController?op=edit&truckId=<%out.print(truck.getId()); %>'>Editar</a></td>
 						<td><a class='btn btn-outline-dark'
-							href='TruckController?op=delete&truckId=<c:out value="${truck.id}"/>'>delete</a></td>
-
+							href='TruckController?op=delete&truckId=<%out.print(truck.getId()); %>'>Deletar</a></td>
 					</tr>
-				</c:forEach>
+				<% }%>
 			</tbody>
 		</table>
 	</div>
